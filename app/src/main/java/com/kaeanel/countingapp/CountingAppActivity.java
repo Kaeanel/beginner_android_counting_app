@@ -11,6 +11,8 @@ public class CountingAppActivity extends AppCompatActivity {
     private CounterManager counterManagerClass = new CounterManager();
     private TextView counterTextView;
     private Button addNumberButton;
+    private Button subtractNumberButton;
+    private Button restartCounterButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,8 +21,10 @@ public class CountingAppActivity extends AppCompatActivity {
 
         counterTextView = findViewById(R.id.counterTextView);
         addNumberButton = findViewById(R.id.addNumberButton);
+        subtractNumberButton = findViewById(R.id.substractNumberButton);
+        restartCounterButton = findViewById(R.id.restartCounterButton);
 
-        View.OnClickListener listener = new View.OnClickListener() {
+        View.OnClickListener addNumberListener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String currentCounterValue = counterTextView.getText().toString();
@@ -29,6 +33,25 @@ public class CountingAppActivity extends AppCompatActivity {
             }
         };
 
-        addNumberButton.setOnClickListener(listener);
+        View.OnClickListener subtractNumberListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String currentCounterValue = counterTextView.getText().toString();
+                String counter = counterManagerClass.subtractNumber(currentCounterValue);
+                counterTextView.setText(counter);
+            }
+        };
+
+        View.OnClickListener restartCounterListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String counter = counterManagerClass.restartCounter();
+                counterTextView.setText(counter);
+            }
+        };
+
+        addNumberButton.setOnClickListener(addNumberListener);
+        subtractNumberButton.setOnClickListener(subtractNumberListener);
+        restartCounterButton.setOnClickListener(restartCounterListener);
     }
 }
